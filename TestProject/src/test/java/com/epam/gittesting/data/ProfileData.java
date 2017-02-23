@@ -5,24 +5,18 @@ import java.util.Random;
 
 public class ProfileData {
 
-    private String name;
-    private String bio;
-    private String blog;
-    private String company;
+    private String name = "";
+    private String bio = "";
+    private String blog = "";
+    private String company = "";
 
-    private String nameGeneration() {
+    private static String nameGeneration() {
         Random random = new Random();
         return new BigInteger(130, random).toString(32);
     }
 
-    public ProfileData(){
-        name = nameGeneration();
-        bio = "I don't really know, what to print there, so i'll just put it here. C'mon, it's just a simple test.";
-        blog = "http//justsomesiteaddress.com";
-        company = "EPAM Systems";
-    }
-
     public String getName() {
+        name = name.equals("") ? nameGeneration() : name;
         return name;
     }
 
@@ -36,6 +30,22 @@ public class ProfileData {
 
     public String getCompany() {
         return company;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
+    }
+
+    public void setBlog(String blog) {
+        this.blog = blog;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
     }
 
 }

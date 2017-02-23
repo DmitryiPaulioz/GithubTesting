@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class NewRepoPage {
 
     private final WebDriver driver;
-    private String createdRepoTitle = null;
+    private String createdRepoTitle = "";
     private int driverWait = 3;
     private By newRepoName = By.id("repository_name");
     private By accessButton = By.cssSelector("button.btn.btn-primary.first-in-line");
@@ -27,7 +27,6 @@ public class NewRepoPage {
     private void submitProfile() {
         driver.findElement(accessButton).click();
         (new WebDriverWait(driver, driverWait)).until(ExpectedConditions.titleIs(createdRepoTitle));
-
     }
 
     public void createRepo(String name) {

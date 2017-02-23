@@ -19,7 +19,6 @@ public class ProfilePage {
 
     public ProfilePage(WebDriver driver) {
         this.driver = driver;
-        (new WebDriverWait(driver, driverWait)).until(ExpectedConditions.presenceOfElementLocated(profileNameField));
     }
 
     private void typeName(String name) {
@@ -58,6 +57,4 @@ public class ProfilePage {
         typeCompany(company);
         submitProfile();
     }
-
-
 }

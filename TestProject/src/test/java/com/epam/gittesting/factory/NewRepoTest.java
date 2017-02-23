@@ -1,53 +1,48 @@
 package com.epam.gittesting.factory;
 
-import com.epam.gittesting.data.CommonVariables;
 import com.epam.gittesting.data.NewRepoData;
 import com.epam.gittesting.entity.LoginPage;
 import com.epam.gittesting.entity.NewRepoPage;
+import com.epam.gittesting.entity.PropertiesHandler;
+import com.epam.gittesting.entity.WebDriverSingleton;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeMethod;
-import org.testng.annotations.BeforeTest;
-import org.testng.annotations.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.Test;
 
-public class NewRepoTest implements CommonVariables {
+
+public class NewRepoTest {
 
     private WebDriver driver = null;
     private WebDriverWait wait = null;
+    private PropertiesHandler properties;
 
-    @BeforeTest
-    public void beforeTest() {
-        System.setProperty(geckodriver, exePath);
-        driver = new FirefoxDriver();
-        driver.get(profileURL);
+    private void login() {
+        driver.navigate().to(properties.getData("loginURL"));
+        LoginPage login = new LoginPage(driver);
+        login.loginAs(properties.getData("username"), properties.getData("password"));
     }
 
-    @BeforeMethod
-    public void login() {
-        wait = new WebDriverWait(driver, 3);
-        if (driver.getCurrentUrl().equals(loginPageURL)) {
-            LoginPage login = new LoginPage(driver);
-            login.loginAs(username, password);
-            wait.until(ExpectedConditions.urlToBe(profileURL));
-            driver.get(newRepoURL);
-            wait.until(ExpectedConditions.urlToBe(newRepoURL));
-        }
+    @BeforeClass
+    public void initialization() {
+        properties = new PropertiesHandler();
+        System.setProperty(properties.getEnvironment("geckodriver"), properties.getEnvironment("exePath"));
+        driver = WebDriverSingleton.getInstance();
     }
 
     @Test
-    public void repoTest() throws InterruptedException {
+    public void repoTest() {
+        login();
+        driver.navigate().to(properties.getData("newRepoURL"));
         NewRepoData repoData = new NewRepoData();
-        NewRepoPage repoPage = new NewRepoPage(driver, username);
+        NewRepoPage repoPage = new NewRepoPage(driver, properties.getData("username"));
         repoPage.createRepo(repoData.getRepoName());
-        Assert.assertTrue(true);
     }
 
-    @AfterTest
-    public void closingWindow(){
-        driver.quit();
+    @AfterClass
+    public void closingWindow() {
+        WebDriverSingleton.closeDriver();
     }
 }
