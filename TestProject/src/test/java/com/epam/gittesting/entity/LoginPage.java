@@ -2,28 +2,35 @@ package com.epam.gittesting.entity;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 
 public class LoginPage {
 
     private final WebDriver driver;
-    private By loginField = By.id("login_field");
-    private By passwordField = By.id("password");
-    private By accessButton = By.name("commit");
+    private WebElement loginField;
+    private WebElement passwordField;
+    private WebElement accessButton;
+    private By successfulLogin = By.className("btn-secondary");
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
+        loginField = driver.findElement(By.id("login_field"));
+        passwordField = driver.findElement(By.id("password"));
+        accessButton = driver.findElement(By.name("commit"));
+
     }
 
     private void typeUsername(String username) {
-        driver.findElement(loginField).sendKeys(username);
+        loginField.sendKeys(username);
     }
 
     private void typePassword(String password) {
-        driver.findElement(passwordField).sendKeys(password);
+        passwordField.sendKeys(password);
     }
 
     private void submitLogin() {
-        driver.findElement(accessButton).click();
+        accessButton.click();
+        driver.findElement(successfulLogin); //in case of success wil load main page and wait for next navigation() or get()
     }
 
     public void loginAs(String username, String password) {

@@ -21,7 +21,6 @@ public class PropertiesHandler {
             dataProperties.load(dataLocator);
             environmentProperties.load(environmentLocator);
         } catch (FileNotFoundException e) {
-            System.out.println(System.getProperty("user.dir") + dataPath);
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,12 +1,7 @@
 package com.epam.gittesting.factory;
 
 import com.epam.gittesting.data.NewRepoData;
-import com.epam.gittesting.entity.LoginPage;
-import com.epam.gittesting.entity.NewRepoPage;
-import com.epam.gittesting.entity.PropertiesHandler;
-import com.epam.gittesting.entity.WebDriverSingleton;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import com.epam.gittesting.entity.*;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -15,8 +10,7 @@ import org.testng.annotations.Test;
 
 public class NewRepoTest {
 
-    private WebDriver driver = null;
-    private WebDriverWait wait = null;
+    private WebDriver driver;
     private PropertiesHandler properties;
 
     private void login() {
@@ -31,18 +25,20 @@ public class NewRepoTest {
         System.setProperty(properties.getEnvironment("geckodriver"), properties.getEnvironment("exePath"));
         driver = WebDriverSingleton.getInstance();
     }
-
     @Test
     public void repoTest() {
         login();
         driver.navigate().to(properties.getData("newRepoURL"));
         NewRepoData repoData = new NewRepoData();
-        NewRepoPage repoPage = new NewRepoPage(driver, properties.getData("username"));
+        NewRepoPage repoPage = new NewRepoPage(driver);
         repoPage.createRepo(repoData.getRepoName());
+        System.out.println();
+        DeleteRepoPage deleteRepo = new DeleteRepoPage(driver, properties, repoData.getRepoName());
+        deleteRepo.delete();
     }
 
     @AfterClass
     public void closingWindow() {
-        WebDriverSingleton.closeDriver();
+        //WebDriverSingleton.closeDriver();
     }
 }

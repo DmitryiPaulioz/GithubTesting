@@ -5,7 +5,9 @@ import com.epam.gittesting.entity.LoginPage;
 import com.epam.gittesting.entity.ProfilePage;
 import com.epam.gittesting.entity.PropertiesHandler;
 import com.epam.gittesting.entity.WebDriverSingleton;
-import org.testng.annotations.AfterTest;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.openqa.selenium.WebDriver;
@@ -46,8 +48,8 @@ public class ProfileTest{
         profilePage.changeProfileInfo(profileData.getName(), profileData.getBio(), profileData.getBlog(), profileData.getCompany());
     }
 
-    @AfterTest
+    @AfterClass
     public void closingWindow() {
-        //WebDriverSingleton.closeDriver();
+        WebDriverSingleton.closeDriver();
     }
 }
