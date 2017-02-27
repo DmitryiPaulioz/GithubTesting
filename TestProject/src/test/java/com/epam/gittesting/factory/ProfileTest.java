@@ -1,12 +1,10 @@
 package com.epam.gittesting.factory;
 
 import com.epam.gittesting.data.ProfileData;
-import com.epam.gittesting.entity.LoginPage;
-import com.epam.gittesting.entity.ProfilePage;
+import com.epam.gittesting.pageobject.LoginPage;
+import com.epam.gittesting.pageobject.ProfilePage;
 import com.epam.gittesting.entity.PropertiesHandler;
 import com.epam.gittesting.entity.WebDriverSingleton;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -35,7 +33,6 @@ public class ProfileTest{
 
     @Test
     public void AppTest() {
-
         login();
         driver.navigate().to(properties.getData("profileURL"));
         ProfileData profileData = new ProfileData();

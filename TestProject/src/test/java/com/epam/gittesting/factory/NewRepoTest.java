@@ -2,6 +2,9 @@ package com.epam.gittesting.factory;
 
 import com.epam.gittesting.data.NewRepoData;
 import com.epam.gittesting.entity.*;
+import com.epam.gittesting.pageobject.DeleteRepoPage;
+import com.epam.gittesting.pageobject.LoginPage;
+import com.epam.gittesting.pageobject.NewRepoPage;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -39,6 +42,6 @@ public class NewRepoTest {
 
     @AfterClass
     public void closingWindow() {
-        //WebDriverSingleton.closeDriver();
+        WebDriverSingleton.closeDriver();
     }
 }
